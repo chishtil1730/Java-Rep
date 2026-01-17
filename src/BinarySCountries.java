@@ -1,6 +1,6 @@
 import java.util.*;
 public class BinarySCountries {
-     //Main method for Binary Countries in this file.
+    //New Comment.
     public static void main(String[] args) {
         String s = "Canada Japan India Spain UK";
         String[] countries = s.split(" ");
