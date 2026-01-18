@@ -179,6 +179,9 @@ If you updated something in GitHub and not in local:
 # Pull changes first
 git pull origin main
 
+#or you could also use
+git pull origin main --allow-unrelated-histories
+
 # If there are conflicts, edit them manually and keep what you want
 git add filename.type
 git commit -m "commit message"
