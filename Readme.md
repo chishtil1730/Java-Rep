@@ -239,7 +239,7 @@ You can delete files locally, in cloud or both
       git rm -r --cached folder_name/
      
      #Then add to .gitignore
-      Add-Content .gitignore "filename.type/"
+      Add-Content .gitignore "folder_name/"
    
      #Commit and push the changes
       git commit -m "commit message"
