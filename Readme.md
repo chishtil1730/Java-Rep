@@ -1,6 +1,6 @@
 # Git Commands Reference Guide
 
-## Initial Setup
+## Initial Setup & Start
 
 ### Connect to GitHub Account
 ```bash
