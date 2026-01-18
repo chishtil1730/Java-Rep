@@ -161,39 +161,6 @@ ZZ  # (Shift + Z + Z)
 :q!
 ```
 
-## Deleting or Removing
-You can delete files locally, in cloud or both
-
-1. **To remove in both locally & cloud**
-   ```bash
-     #Remove in both local & cloud
-      git rm filename.type 
-   
-     #Remove only in cloud (keep in local)
-      git rm --cached filename.type
-   
-     #Then add to .gitignore
-      echo filename.txt >> .gitignore
-   ```
-2. **To remove a directory**
-   ```bash
-      #Remove in both local & cloud
-      git rm -r folder_name/
-   
-     #Remove only in cloud (keep in local)
-      git rm -r --cached folder_name/
-     
-     #Then add to .gitignore
-      echo filename.txt >> .gitignore
-   ```
-3. **If you deleted by mistake** 
-   ```bash
-      #To restore all
-      git restore .
-   
-     #For a specific file
-      git restore filename.type
-   ```
 ## Common Workflow
 
 1. **Start a new project:**
