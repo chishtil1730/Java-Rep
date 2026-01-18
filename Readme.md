@@ -15,6 +15,26 @@ git config --global user.email "{github_linked_email}"
 git init
 ```
 
+## Add files to .gitignore to ignore them from version control
+### To add files to .gitignore via commands
+You can add single file or directory or multiple of them.
+1. **To add multiple files**
+   ```bash
+      Add-Content .gitignore @"
+       node_modules/
+       .env
+       dist/
+      "@
+   ```
+2. **To add a single file or directory**
+   ```bash
+      #To add a file to .gitignore
+      Add-Content .gitignore "filename.type"
+   
+      #To add a directory to .gitignore
+      Add-Content .gitignore "folder_name/"
+   ```
+
 ### Fetch from Existing Repository
 If a repo already exists, fetch that branch from GitHub:
 ```bash
@@ -201,14 +221,6 @@ You can delete files locally, in cloud or both
    
      #For a specific file
       git restore filename.type
-   ```
-## To add files to .gitignore via commands
-   ```bash
-      Add-Content .gitignore @"
-       node_modules/
-       .env
-       dist/
-      "@
    ```
 
 ## Common Workflow
