@@ -1,16 +1,26 @@
 # Git Commands Reference Guide
 
-## Table of Contents
-- [Initial Setup & Start](#initial-setup--start)
-- [Repository Management](#repository-management)
-- [Staging and Committing](#staging-and-committing)
-- [Branch Management](#branch-management)
-- [Viewing History](#viewing-history)
-- [Merging and Syncing](#merging-and-syncing)
-- [Vim Editor Commands](#vim-editor-commands-for-merge-messages)
-- [Deleting or Removing](#deleting-or-removing)
-- [Renaming Files or Directories](#renaming-files-or-directories)
-- [Common Workflow](#common-workflow)
+## 📑 Table of Contents
+
+### 🚀 Getting Started
+[![Initial Setup & Start](https://img.shields.io/badge/Initial_Setup_&_Start-4A90E2?style=for-the-badge)](#initial-setup--start)
+[![Repository Management](https://img.shields.io/badge/Repository_Management-4A90E2?style=for-the-badge)](#repository-management)
+
+### 💻 Working with Code
+[![Staging and Committing](https://img.shields.io/badge/Staging_and_Committing-2ECC71?style=for-the-badge)](#staging-and-committing)
+[![Branch Management](https://img.shields.io/badge/Branch_Management-2ECC71?style=for-the-badge)](#branch-management)
+[![Viewing History](https://img.shields.io/badge/Viewing_History-2ECC71?style=for-the-badge)](#viewing-history)
+
+### 🔄 Collaboration & Syncing
+[![Merging and Syncing](https://img.shields.io/badge/Merging_and_Syncing-9B59B6?style=for-the-badge)](#merging-and-syncing)
+[![Vim Editor Commands](https://img.shields.io/badge/Vim_Editor_Commands_(for_Merge_Messages)-9B59B6?style=for-the-badge)](#vim-editor-commands-for-merge-messages)
+
+### 🗑️ File Operations
+[![Deleting or Removing](https://img.shields.io/badge/Deleting_or_Removing-E74C3C?style=for-the-badge)](#deleting-or-removing)
+[![Renaming files or directories](https://img.shields.io/badge/Renaming_files_or_directories-E74C3C?style=for-the-badge)](#renaming-files-or-directories)
+
+### 📋 Quick Reference
+[![Common Workflow](https://img.shields.io/badge/Common_Workflow-F39C12?style=for-the-badge)](#common-workflow)
 
 ---
 
