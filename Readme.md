@@ -1,3 +1,2 @@
-## Title
-- this is a read me for Java Repo.
-
+## Java Personal Repo
+- Contains personal java files.
