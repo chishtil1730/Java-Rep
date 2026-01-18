@@ -15,6 +15,8 @@ git init
 git fetch origin
 ```
 
+
+
 ## and then push normally
 
 ## To add
@@ -91,6 +93,7 @@ git push -u origin main
 git branch -d <branch-name>
 git push origin --delete master
 ```
+
 #  If you updated something in GitHub and not in local, 
 - pull the changes to your local machine first.
 - If there is a conflict, edit them manually and keep what you want.
@@ -100,3 +103,19 @@ git add filename.type
 git commit -m"commit message"
 git push -u origin main
 ```
+
+## When you made a separate branch
+## (or)
+# If you added a readme while creating the repo in github and you made changes in local git,<br> use git pull and merge both the branches
+## use this command:
+```
+git pull origin main --allow-unrelated-histories
+```
+## this will take you to a VIM terminal,
+# Steps:
+- ### Step 1: press i to enter insert mode
+- ### Step 2: enter your custom merge message
+- ### Step 3: press Esc
+- ### Step 4: type :wq and Enter.
+## Your merge will happen successfully and remote changes are added to local git. If there are any conflicts, you should manually configure or choose what is to stay.
+
