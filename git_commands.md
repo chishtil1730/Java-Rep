@@ -15,9 +15,9 @@ git init
 git fetch origin
 ```
 
-# and then push normally
+## and then push normally
 
-# to add
+## To add
 ```
 git add filename.type
 ```
@@ -30,14 +30,14 @@ git add .
 ```
 git commit -m"Commit message"
 ```
-# if you want to add extra files to same commit or want to change the commit change:
+# if you want to add extra files to same commit or want to change the commit message:
 ```
 git commit -m"new commit name" --amend
 ```
 
-# create a repo in GitHub.
+# Create a repo in GitHub.
 
-# connect the repo to local
+## connect the repo to local
 ```
 git remote add origin {url}
 ```
@@ -47,7 +47,7 @@ git remote add origin {url}
 git branch -M main
 git push -u origin main
 ```
-# or
+## or
 ```
 git push -u origin main --force
 ```
@@ -56,44 +56,44 @@ git push -u origin main --force
 ```
 git log
 ```
-# (or)
+## (or)
 ```
 git log --all
 ```
-# (or)
+## (or)
 ```
 git log --graph
 ```
-# (or)
+## (or)
 ```
 git log --oneline
 ```
 
-# to checkout previous version:
+# To checkout previous version:
 ```
 git checkout {commit id}
 
 ```
 
-# to get branch we use :
+# To get branches in the repo :
 ```
 git branch -r
 ```
-# to merge them we use :
+## to merge them we use :
 ```
 git checkout main
 git merge origin/master --allow-unrelated-histories
 git commit -m"merging message"
 git push -u origin main
 ```
-# (delete the other branch in cloud)
+## (delete the other branch in cloud)
 ```
 git branch -d <branch-name>
 git push origin --delete master
 ```
-# If you updated something in GitHub and not in local,
-# pull the changes to your local machine first.
-# If there is a conflict, edit them manually and keep what you want.
+#  If you updated something in GitHub and not in local, 
+- pull the changes to your local machine first.
+- If there is a conflict, edit them manually and keep what you want.
 ```
 git pull origin main
 git add filename.type
