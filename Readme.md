@@ -1,5 +1,19 @@
 # Git Commands Reference Guide
 
+## Table of Contents
+- [Initial Setup & Start](#initial-setup--start)
+- [Repository Management](#repository-management)
+- [Staging and Committing](#staging-and-committing)
+- [Branch Management](#branch-management)
+- [Viewing History](#viewing-history)
+- [Merging and Syncing](#merging-and-syncing)
+- [Vim Editor Commands](#vim-editor-commands-for-merge-messages)
+- [Deleting or Removing](#deleting-or-removing)
+- [Renaming Files or Directories](#renaming-files-or-directories)
+- [Common Workflow](#common-workflow)
+
+---
+
 ## Initial Setup & Start
 
 ### Connect to GitHub Account
