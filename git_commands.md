@@ -32,6 +32,9 @@ git remote add origin {url}
 # Delete .git folder (removes version control)
 Remove-Item -Recurse -Force .git
 
+#Short or alias form
+rm -r -fo .git
+
 # Delete entire project folder
 Remove-Item -Recurse -Force <folder-name>
 
