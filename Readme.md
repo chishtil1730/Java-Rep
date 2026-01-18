@@ -173,7 +173,11 @@ You can delete files locally, in cloud or both
       git rm --cached filename.type
    
      #Then add to .gitignore
-      echo filename.txt >> .gitignore
+      Add-Content .gitignore "filename.type"
+   
+    #Commit and push the changes
+      git commit -m "commit message"
+      git push -u origin main
    ```
 2. **To remove a directory**
    ```bash
@@ -184,7 +188,11 @@ You can delete files locally, in cloud or both
       git rm -r --cached folder_name/
      
      #Then add to .gitignore
-      echo filename.txt >> .gitignore
+      Add-Content .gitignore "filename.type/"
+   
+     #Commit and push the changes
+      git commit -m "commit message"
+      git push -u origin main
    ```
 3. **If you deleted by mistake** 
    ```bash
@@ -194,6 +202,15 @@ You can delete files locally, in cloud or both
      #For a specific file
       git restore filename.type
    ```
+## To add files to .gitignore via commands
+   ```bash
+      Add-Content .gitignore @"
+       node_modules/
+       .env
+       dist/
+      "@
+   ```
+
 ## Common Workflow
 
 1. **Start a new project:**
