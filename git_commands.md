@@ -1,121 +1,189 @@
-# Connect to GitHub account
-```
+# Git Commands Reference Guide
+
+## Initial Setup
+
+### Connect to GitHub Account
+```bash
 git config --global user.name "{github_username}"
 git config --global user.email "{github_linked_email}"
 ```
-# create an empty repo:
-```
+
+## Repository Management
+
+### Create an Empty Repository
+```bash
 git init
 ```
 
-
-# if a repo already exists, we fetch that branch from GitHub.
-
-```
+### Fetch from Existing Repository
+If a repo already exists, fetch that branch from GitHub:
+```bash
 git fetch origin
+# and then push normally
 ```
 
-
-
-## and then push normally
-
-## To add
-```
-git add filename.type
-```
-# (to add all files)
-```
-git add .
-```
-
-# to commit
-```
-git commit -m"Commit message"
-```
-# if you want to add extra files to same commit or want to change the commit message:
-```
-git commit -m"new commit name" --amend
-```
-
-# Create a repo in GitHub.
-
-## connect the repo to local
-```
+### Connect Local Repository to Remote
+```bash
 git remote add origin {url}
 ```
 
-# change the name of the branch from master to main
+### Delete Repository (PowerShell)
+```bash
+# Delete .git folder (removes version control)
+Remove-Item -Recurse -Force .git
+
+# Delete entire project folder
+Remove-Item -Recurse -Force <folder-name>
+
+# Remove remote connection only
+git remote remove origin
 ```
+
+## Staging and Committing
+
+### Add Files to Staging
+```bash
+# Add specific file
+git add filename.type
+
+# Add all files
+git add .
+```
+
+### Commit Changes
+```bash
+# Standard commit
+git commit -m "Commit message"
+
+# Amend previous commit (add files or change message)
+git commit -m "new commit name" --amend
+```
+
+## Branch Management
+
+### Rename Branch from Master to Main
+```bash
 git branch -M main
+```
+
+### Push to Remote
+```bash
+# Standard push
 git push -u origin main
-```
-## or
-```
+
+# Force push (!!use with caution) Will Override previous files. 
 git push -u origin main --force
 ```
 
-# to view the log
-```
-git log
-```
-## (or)
-```
-git log --all
-```
-## (or)
-```
-git log --graph
-```
-## (or)
-```
-git log --oneline
-```
-
-# To checkout previous version:
-```
-git checkout {commit id}
-
-```
-
-# To get branches in the repo :
-```
+### List Remote Branches
+```bash
 git branch -r
 ```
-## to merge them we use :
-```
-git checkout main
-git merge origin/master --allow-unrelated-histories
-git commit -m"merging message"
-git push -u origin main
-```
-## (delete the other branch in cloud)
-```
+
+### Delete Branch
+```bash
+# Delete local branch
 git branch -d <branch-name>
+
+# Delete remote branch
 git push origin --delete master
 ```
 
-#  If you updated something in GitHub and not in local, 
-- pull the changes to your local machine first.
-- If there is a conflict, edit them manually and keep what you want.
+## Viewing History
+
+### View Commit Log
+```bash
+# Basic log
+git log
+
+# All branches
+git log --all
+
+# Graphical representation
+git log --graph
+
+# Compact view
+git log --oneline
 ```
+
+## Merging and Syncing
+
+### Checkout Previous Version
+```bash
+git checkout {commit id}
+```
+
+### Merge Branches
+```bash
+git checkout main
+git merge origin/master --allow-unrelated-histories
+git commit -m "merging message"
+git push -u origin main
+# Then delete the other branch in cloud if needed
+```
+
+### Pull and Resolve Conflicts
+If you updated something in GitHub and not in local:
+```bash
+# Pull changes first
 git pull origin main
+
+# If there are conflicts, edit them manually and keep what you want
 git add filename.type
-git commit -m"commit message"
+git commit -m "commit message"
 git push -u origin main
 ```
 
-## When you made a separate branch
-## (or)
-# If you added a readme while creating the repo in github and you made changes in local git,<br> use git pull and merge both the branches
-## use this command:
-```
-git pull origin main --allow-unrelated-histories
-```
-## this will take you to a VIM terminal,
-# Steps:
-- ### Step 1: press i to enter insert mode
-- ### Step 2: enter your custom merge message
-- ### Step 3: press Esc
-- ### Step 4: type :wq and Enter.
-## Your merge will happen successfully and remote changes are added to local git. If there are any conflicts, you should manually configure or choose what is to stay.
+## Vim Editor Commands (for Merge Messages)
 
+When Git opens Vim for merge commit messages:
+
+```bash
+# Save and exit with default message
+:wq
+
+# Or simply
+:x
+
+# Or press
+ZZ  # (Shift + Z + Z)
+
+# To add custom message:
+# 1. Press 'i' for INSERT mode
+# 2. Type your message
+# 3. Press 'Esc'
+# 4. Type ':wq' and press Enter
+
+# Abort without saving
+:q!
+```
+
+## Common Workflow
+
+1. **Start a new project:**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit"
+   git remote add origin {url}
+   git branch -M main
+   git push -u origin main
+   ```
+
+2. **Daily workflow:**
+   ```bash
+   git pull origin main
+   # Make your changes
+   git add .
+   git commit -m "Description of changes"
+   git push -u origin main
+   ```
+
+3. **Fix merge conflicts:**
+   ```bash
+   git pull origin main
+   # Resolve conflicts in files
+   git add .
+   git commit -m "Resolved merge conflicts"
+   git push -u origin main
+   ```
