@@ -172,7 +172,7 @@ ZZ  # (Shift + Z + Z)
 
 2. **Daily workflow:**
    ```bash
-   git pull origin main
+   git pull origin main --allow-unrelated-histories
    # Make your changes
    git add .
    git commit -m "Description of changes"
