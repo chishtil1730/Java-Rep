@@ -227,6 +227,21 @@ You can delete files locally, in cloud or both
       git restore filename.type
    ```
 
+## Renaming files or directories
+
+1. **Renaming a single file**
+   ```bash
+      git mv old_filename.type old_filename.type
+      git commit -m"commit message"
+      git push -u origin main
+   ```
+2. **Renaming a directory**
+   ```bash
+      git mv old_folder_name new_folder_name
+      git commit -m"commit message"
+      git push -u origin main
+   ```
+
 ## Common Workflow
 
 1. **Start a new project:**
