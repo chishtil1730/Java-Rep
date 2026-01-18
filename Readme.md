@@ -34,6 +34,10 @@ You can add single file or directory or multiple of them.
       #To add a directory to .gitignore
       Add-Content .gitignore "folder_name/"
    ```
+3. **To check what's being ignored in terminal**
+   ```bash
+      Get-Content .gitignore
+   ```
 
 ### Fetch from Existing Repository
 If a repo already exists, fetch that branch from GitHub:
