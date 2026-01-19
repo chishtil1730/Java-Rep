@@ -212,6 +212,19 @@ ZZ  # (Shift + Z + Z)
 :q!
 ```
 
+## Adding a directory
+You can add a directory in powershell by the following commands
+
+1. **To add a directory**
+   ```bash
+      #makes a new directory with the given name
+      mkdir folder_name
+      
+      #Make it not ignored by git
+      New-Item folder_name\.gitkeep -ItemType File
+   ```
+
+
 ## Deleting or Removing
 You can delete files locally, in cloud or both
 
