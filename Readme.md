@@ -16,6 +16,7 @@
 [![Vim Editor Commands](https://img.shields.io/badge/Vim_Editor_Commands_(for_Merge_Messages)-9B59B6?style=for-the-badge)](#vim-editor-commands-for-merge-messages)
 
 ### 🗑️ File Operations
+[![Adding](https://img.shields.io/badge/Adding_Directories-E74C3C?style=for-the-badge)](#adding-a-directory)
 [![Deleting or Removing](https://img.shields.io/badge/Deleting_or_Removing-E74C3C?style=for-the-badge)](#deleting-or-removing)
 [![Renaming files or directories](https://img.shields.io/badge/Renaming_files_or_directories-E74C3C?style=for-the-badge)](#renaming-files-or-directories)
 
