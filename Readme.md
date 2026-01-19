@@ -162,16 +162,20 @@ git log --oneline
 
 ### Checkout Previous Version
 ```bash
-git checkout {commit id}
+  #To check a certain version 
+  git checkout {commit id}
+  
+  #To check the latest version
+  git checkout main
 ```
 
 ### Merge Branches
 ```bash
-git checkout main
-git merge origin/master --allow-unrelated-histories
-git commit -m "merging message"
-git push -u origin main
-# Then delete the other branch in cloud if needed
+  git checkout main
+  git merge origin/master --allow-unrelated-histories
+  git commit -m "merging message"
+  git push -u origin main
+  # Then delete the other branch in cloud if needed
 ```
 
 ### Pull and Resolve Conflicts
