@@ -220,6 +220,15 @@ When Git opens Vim for merge commit messages:
 # 3. Press 'Esc'
 # 4. Type ':wq' and press Enter
 
+# If you want to add a description,
+# leave a blank line below the commit message and
+#it is treated as description
+
+#Ex : 
+commmit message
+
+description_message
+
 # Save and exit with default message
 :wq
 
