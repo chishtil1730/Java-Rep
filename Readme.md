@@ -115,6 +115,7 @@ git add .
       git commit -m"message" -m"description" 
       
       #to open an editor to type in the commit message
+      #opens vim editor
       git commit   
    ```
 
@@ -198,13 +199,27 @@ git pull origin main --allow-unrelated-histories
 git add filename.type
 git commit -m "commit message"
 git push -u origin main
-```
 
-## Vim Editor Commands (for Merge Messages)
+
+```
+### Why an editor or Vim terminal might show up.
+1. #### When you use a 'git commit' command.
+ #### (or)
+2. #### When you pull changes sometimes, Github wants to have a commit message again, so it by default uses the 'git commit' command, which will open the vim terminal 
+
+
+
+## Vim Editor Commands 
 
 When Git opens Vim for merge commit messages:
 
 ```bash
+# To add custom message:
+# 1. Press 'i' for INSERT mode
+# 2. Type your message
+# 3. Press 'Esc'
+# 4. Type ':wq' and press Enter
+
 # Save and exit with default message
 :wq
 
@@ -214,11 +229,7 @@ When Git opens Vim for merge commit messages:
 # Or press
 ZZ  # (Shift + Z + Z)
 
-# To add custom message:
-# 1. Press 'i' for INSERT mode
-# 2. Type your message
-# 3. Press 'Esc'
-# 4. Type ':wq' and press Enter
+
 
 # Abort without saving
 :q!
