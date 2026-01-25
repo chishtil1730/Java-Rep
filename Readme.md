@@ -103,13 +103,20 @@ git add .
 ```
 
 ### Commit Changes
-```bash
-# Standard commit
-git commit -m "Commit message"
 
-# Amend previous commit (add files or change message)
-git commit -m "new commit name" --amend
-```
+1. ```bash
+      # Normal commit
+      git commit -m"commit_message" 
+   
+      # changing commit name / merging 2 commits
+      git commit -m"new_message" --amend
+   
+      #for optional description4
+      git commit -m"message" -m"description" 
+      
+      #to open an editor to type in the commit message
+      git commit   
+   ```
 
 ## Branch Management
 
