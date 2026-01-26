@@ -10,6 +10,7 @@
 [![Staging and Committing](https://img.shields.io/badge/Staging_and_Committing-2ECC71?style=for-the-badge)](#staging-and-committing)
 [![Branch Management](https://img.shields.io/badge/Branch_Management-2ECC71?style=for-the-badge)](#branch-management)
 [![Viewing History](https://img.shields.io/badge/Viewing_History-2ECC71?style=for-the-badge)](#viewing-history)
+[![Viewing_Differences](https://img.shields.io/badge/Viewing_Differences-2ECC71?style=for-the-badge)](#view-differences-between-commits)
 
 ### 🔄 Collaboration & Syncing
 [![Merging and Syncing](https://img.shields.io/badge/Merging_and_Syncing-9B59B6?style=for-the-badge)](#merging-and-syncing)
