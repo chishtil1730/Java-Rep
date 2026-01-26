@@ -121,6 +121,7 @@ git add .
    ```
    
 ## View Differences between commits
+1. In terminal
 ```bash
     #shows changes that you haven't staged yet
    git diff
@@ -131,6 +132,19 @@ git add .
    #To view differences between 2 commits
    git diff commit_id1 commmit_id2
 ```
+
+2. If you use a JetBrains IDE
+```bash
+    #To go to log section
+   Alt+9 
+   
+   Ctrl+click on commits you want to check
+   
+   Right click & view Differences 
+   
+   #Changes appear in files instead of terminal
+```
+
 
 ## Branch Management
 
