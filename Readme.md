@@ -118,6 +118,18 @@ git add .
       #opens vim editor
       git commit   
    ```
+   
+## View Differences between commits
+```bash
+    #shows changes that you haven't staged yet
+   git diff
+   
+   #To view staged changes
+   git diff --staged
+   
+   #To view differences between 2 commits
+   git diff commit_id1 commmit_id2
+```
 
 ## Branch Management
 
