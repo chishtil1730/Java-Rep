@@ -326,6 +326,22 @@ You can delete files locally, in cloud or both
       git restore filename.type
    ```
 
+## Adding files
+
+1. Adding a file directly
+   ```bash
+      #To add a file directly in the repo
+      New-Item filename.type -ItemType File
+   ```
+2. To add a file inside a directory
+   ```bash
+      #Adding file inside the folder
+      New-Item folder1/folder2/filename.type -ItemType File
+   
+      #(or)
+      New-Item folder1/folder2\filename.type -ItemType File
+   ```
+
 ## Renaming files or directories
 
 1. **Renaming a single file**
