@@ -65,6 +65,20 @@ You can add single file or directory or multiple of them.
       Get-Content .gitignore
    ```
 
+4. If added by mistake, you can force git to track that file or folder again like this
+```bash
+   #For files
+   git add -f filename.type
+
+  #For folders
+  git add -f foldername/
+  
+  #Commit and push changes
+  git commit -m"commit message"
+  
+  git push -u origin main
+```
+
 ### Fetch from Existing Repository
 If a repo already exists, fetch that branch from GitHub:
 ```bash
