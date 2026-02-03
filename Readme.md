@@ -134,6 +134,19 @@ git add .
       git commit   
    ```
    
+## To Unstage
+When you commit something by mistake and actually want to unstage the commit, you can use this following command.
+After this, you would have to add files again
+
+```bash
+    #Unstages commits but have to add files again
+   git reset HEAD~1
+   
+   #To add more files, you can use --amend flag or use this command too
+   git reset --soft HEAD~1
+```
+
+   
 ## View Differences between commits
 1. In terminal
 ```bash
