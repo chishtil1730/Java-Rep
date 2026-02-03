@@ -241,8 +241,13 @@ git add filename.type
 git commit -m "commit message"
 git push -u origin main
 
+#If your repo is being used by more than 1 person,
+#you might have conflicts. So we pull their changes first, and place them below
+#your commit. Basically rebasing the changes made by them.
 
+git pull --rebase
 ```
+
 ### Why an editor or Vim terminal might show up.
 1. #### When you use a 'git commit' command.
  #### (or)
