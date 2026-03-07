@@ -16,6 +16,9 @@
 [![Merging and Syncing](https://img.shields.io/badge/Merging_and_Syncing-9B59B6?style=for-the-badge)](#merging-and-syncing)
 [![Vim Editor Commands](https://img.shields.io/badge/Vim_Editor_Commands_(for_Merge_Messages)-9B59B6?style=for-the-badge)](#vim-editor-commands-for-merge-messages)
 
+### 🎬 Github Action Workflow Activation
+
+
 ### 🗑️ File Operations
 [![Adding](https://img.shields.io/badge/Adding_Directories-E74C3C?style=for-the-badge)](#adding-a-directory)
 [![Deleting or Removing](https://img.shields.io/badge/Deleting_or_Removing-E74C3C?style=for-the-badge)](#deleting-or-removing)
@@ -417,4 +420,11 @@ You can delete files locally, in cloud or both
    git add .
    git commit -m "Resolved merge conflicts"
    git push -u origin main
+   ```
+
+## Starting a workflow
+
+   ```bash
+      git push origin :refs/tags/v0.1.1
+      git push origin v0.1.1
    ```
