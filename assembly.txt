@@ -1,0 +1,36 @@
+data segment
+a dw 0123h
+len dw 0010h
+ones dw 0000h
+zeros dw 0000h
+data ends
+
+code segment
+assume cs:code,ds:data
+mov ax,data
+mov ds,ax
+
+mov si,0
+mov ax,a
+start:
+madhuree_loop:
+    shl ax,1
+    jc increment_ones
+    jmp increment_zeros
+    inc si
+    cmp si,len
+
+    je end_loop
+
+    jmp madhuree_loop
+
+increment_ones:
+    inc ones
+
+increment_zeros:
+    inc zeros
+
+end_loop:
+    int 3
+code ends
+end start
