@@ -13,7 +13,7 @@ mov ds,ax
 mov si,0
 mov ax,a
 start:
-madhuree_loop:
+while_loop:
     shl ax,1
     jc increment_ones
     jmp increment_zeros
@@ -22,7 +22,7 @@ madhuree_loop:
 
     je end_loop
 
-    jmp madhuree_loop
+    jmp while_loop
 
 increment_ones:
     inc ones
