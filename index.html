@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d0d0d;
+            --surface: #161616;
+            --surface2: #1e1e1e;
+            --border: #2a2a2a;
+            --accent: #c8f135;
+            --accent2: #f13535;
+            --accent3: #35c8f1;
+            --text: #f0ede6;
+            --muted: #888;
+            --font-mono: 'Space Mono', monospace;
+            --font-body: 'DM Sans', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                    linear-gradient(rgba(200,241,53,0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(200,241,53,0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            padding: 48px 0 32px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 48px;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .logo-area h1 {
+            font-family: var(--font-mono);
+            font-size: clamp(24px, 4vw, 40px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1;
+            color: var(--text);
+        }
+
+        .logo-area h1 span {
+            color: var(--accent);
+        }
+
+        .logo-area p {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 8px;
+            font-family: var(--font-mono);
+            letter-spacing: 0.05em;
+        }
+
+        .header-stat {
+            text-align: right;
+        }
+
+        .header-stat .big {
+            font-family: var(--font-mono);
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .header-stat .label {
+            font-size: 12px;
+            color: var(--muted);
+            font-family: var(--font-mono);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* Ticker bar */
+        .ticker {
+            background: var(--accent);
+            padding: 8px 0;
+            overflow: hidden;
+            margin-bottom: 48px;
+            position: relative;
+        }
+
+        .ticker-inner {
+            display: flex;
+            gap: 0;
+            animation: ticker 20s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker-item {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 700;
+            color: #0d0d0d;
+            padding: 0 32px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Overview cards */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0,1fr));
+            gap: 2px;
+            margin-bottom: 48px;
+            border: 1px solid var(--border);
+        }
+
+        .ov-card {
+            background: var(--surface);
+            padding: 24px 20px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.2s;
+        }
+
+        .ov-card:hover { background: var(--surface2); }
+
+        .ov-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .ov-card:hover::after { transform: scaleX(1); }
+
+        .ov-card .ov-num {
+            font-family: var(--font-mono);
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .ov-card .ov-label {
+            font-size: 11px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-family: var(--font-mono);
+        }
+
+        .ov-card .ov-sub {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        /* Section headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .section-header h2 {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+        }
+
+        .section-header::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* Schedule */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0,1fr));
+            gap: 2px;
+            margin-bottom: 48px;
+        }
+
+        .day-col {
+            background: var(--surface);
+            overflow: hidden;
+        }
+
+        .day-header {
+            background: var(--surface2);
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .day-header .day-name {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--text);
+        }
+
+        .day-header .day-count {
+            font-family: var(--font-mono);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-top: 4px;
+        }
+
+        .day-header .day-count-label {
+            font-size: 10px;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+            font-family: var(--font-mono);
+        }
+
+        .day-subjects { padding: 10px; }
+
+        .subj-pill {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            padding: 6px 8px;
+            margin-bottom: 4px;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .subj-pill:hover { filter: brightness(1.2); }
+
+        /* Subject main section */
+        .subjects-section { margin-bottom: 48px; }
+
+        .subject-row {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            margin-bottom: 2px;
+            cursor: pointer;
+            transition: all 0.2s;
+            overflow: hidden;
+        }
+
+        .subject-row:hover { border-color: var(--accent); }
+        .subject-row.expanded { border-color: var(--accent); }
+
+        .subject-summary {
+            display: grid;
+            grid-template-columns: 140px 1fr 100px 100px 100px 80px;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+        }
+
+        .subj-id {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .subj-fullname {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .subj-stat {
+            text-align: center;
+        }
+
+        .subj-stat .val {
+            font-family: var(--font-mono);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .subj-stat .lbl {
+            font-size: 10px;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .att-badge {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 2px;
+            text-align: center;
+        }
+
+        .expand-icon {
+            font-family: var(--font-mono);
+            font-size: 18px;
+            color: var(--muted);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .subject-row.expanded .expand-icon { transform: rotate(45deg); color: var(--accent); }
+
+        .subject-detail {
+            display: none;
+            padding: 0 20px 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .subject-row.expanded .subject-detail { display: block; }
+
+        .detail-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            padding-top: 16px;
+        }
+
+        .detail-block {
+            background: var(--surface2);
+            padding: 16px;
+            border-radius: 2px;
+        }
+
+        .detail-block h4 {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        /* Progress bars */
+        .pbar-wrap { margin-bottom: 10px; }
+
+        .pbar-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--muted);
+            font-family: var(--font-mono);
+            margin-bottom: 4px;
+        }
+
+        .pbar-track {
+            height: 4px;
+            background: var(--border);
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        .pbar-fill {
+            height: 100%;
+            border-radius: 0;
+            transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        /* Bunk visual */
+        .bunk-visual {
+            display: flex;
+            height: 32px;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .bunk-seg {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 700;
+            transition: flex 0.6s cubic-bezier(0.4,0,0.2,1);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .seg-attended { background: #2a2a2a; color: var(--muted); }
+        .seg-must { background: var(--accent2); color: #fff; }
+        .seg-bunk { background: var(--accent); color: #0d0d0d; }
+
+        /* Bunk summary chart */
+        .bunk-chart { margin-bottom: 48px; }
+
+        .bunk-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .bunk-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text);
+            width: 70px;
+            flex-shrink: 0;
+        }
+
+        .bunk-bar-track {
+            flex: 1;
+            height: 28px;
+            display: flex;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .bunk-seg-small {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 700;
+            transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .bunk-info {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--muted);
+            width: 100px;
+            text-align: right;
+            flex-shrink: 0;
+        }
+
+        .legend-row {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .legend-box {
+            width: 12px;
+            height: 12px;
+            border-radius: 1px;
+            flex-shrink: 0;
+        }
+
+        /* Tab nav */
+        .tab-nav {
+            display: flex;
+            gap: 0;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 32px;
+        }
+
+        .tab-btn {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            color: var(--muted);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover { color: var(--text); }
+        .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* Simulate section */
+        .sim-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .sim-card h3 {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .sim-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .sim-subject {
+            background: var(--surface2);
+            padding: 14px;
+            border-radius: 2px;
+            border: 1px solid var(--border);
+            transition: border-color 0.2s;
+        }
+
+        .sim-subject:hover { border-color: var(--accent); }
+
+        .sim-subject-name {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .sim-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sim-btn {
+            width: 28px;
+            height: 28px;
+            background: var(--border);
+            border: none;
+            color: var(--text);
+            font-family: var(--font-mono);
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 2px;
+            transition: background 0.15s;
+            flex-shrink: 0;
+        }
+
+        .sim-btn:hover { background: var(--accent); color: #0d0d0d; }
+
+        .sim-value {
+            font-family: var(--font-mono);
+            font-size: 14px;
+            font-weight: 700;
+            text-align: center;
+            flex: 1;
+            color: var(--text);
+        }
+
+        .sim-att-display {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 6px;
+            text-align: center;
+        }
+
+        .sim-result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .sim-result-card {
+            background: var(--surface2);
+            padding: 14px;
+            border-radius: 2px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .sim-result-card.warn { border-left-color: var(--accent2); }
+
+        .sim-result-card .sr-name {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--muted);
+            margin-bottom: 4px;
+        }
+
+        .sim-result-card .sr-val {
+            font-family: var(--font-mono);
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .sim-result-card.warn .sr-val { color: var(--accent2); }
+
+        /* Week view */
+        .week-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2px;
+            margin-bottom: 48px;
+        }
+
+        .week-day {
+            background: var(--surface);
+            padding: 16px 12px;
+        }
+
+        .week-day-hdr {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--muted);
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .week-class {
+            font-size: 12px;
+            padding: 8px 10px;
+            margin-bottom: 4px;
+            border-radius: 2px;
+            font-weight: 500;
+            border-left: 3px solid;
+        }
+
+        /* Pill colors per subject */
+        .c0 { background: rgba(200,241,53,0.1); border-color: var(--accent); color: var(--accent); }
+        .c1 { background: rgba(53,200,241,0.1); border-color: var(--accent3); color: var(--accent3); }
+        .c2 { background: rgba(241,53,53,0.1); border-color: var(--accent2); color: var(--accent2); }
+        .c3 { background: rgba(241,200,53,0.1); border-color: #f1c835; color: #f1c835; }
+        .c4 { background: rgba(200,53,241,0.1); border-color: #c835f1; color: #c835f1; }
+        .c5 { background: rgba(53,241,120,0.1); border-color: #35f178; color: #35f178; }
+        .c6 { background: rgba(241,120,53,0.1); border-color: #f17835; color: #f17835; }
+
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 24px 0;
+            margin-top: 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: gap;
+        }
+
+        .footer p {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.05em;
+        }
+
+        .footer .accent { color: var(--accent); }
+
+        @media (max-width: 768px) {
+            .overview-grid { grid-template-columns: repeat(2, 1fr); }
+            .subject-summary { grid-template-columns: 1fr 1fr; row-gap: 8px; }
+            .subj-fullname { grid-column: 1/-1; }
+            .detail-inner { grid-template-columns: 1fr; }
+            .schedule-grid { grid-template-columns: repeat(3, 1fr); }
+            .week-grid { grid-template-columns: repeat(2, 1fr); }
+            .sim-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <header>
+        <div class="header-inner">
+            <div class="logo-area">
+                <h1>ATTEND<span>_</span>TRACK</h1>
+                <p>// SEM ATTENDANCE DASHBOARD — 2025</p>
+            </div>
+            <div class="header-stat">
+                <div class="big" id="hdrAvg">—</div>
+                <div class="label">AVG ATTENDANCE</div>
+            </div>
+        </div>
+    </header>
+
+</div>
+
+<!-- Ticker -->
+<div class="ticker">
+    <div class="ticker-inner" id="tickerInner"></div>
+</div>
+
+<div class="container">
+
+    <!-- Overview -->
+    <div class="overview-grid" id="overviewGrid"></div>
+
+    <!-- Tab nav -->
+    <div class="tab-nav">
+        <button class="tab-btn active" onclick="showTab('subjects')">Subjects</button>
+        <button class="tab-btn" onclick="showTab('schedule')">Schedule</button>
+        <button class="tab-btn" onclick="showTab('bunk')">Bunk Budget</button>
+        <button class="tab-btn" onclick="showTab('simulate')">Simulate</button>
+    </div>
+
+    <!-- Subjects tab -->
+    <div class="tab-panel active" id="tab-subjects">
+        <div class="section-header"><h2>All Subjects</h2></div>
+        <div class="subjects-section" id="subjectsSection"></div>
+    </div>
+
+    <!-- Schedule tab -->
+    <div class="tab-panel" id="tab-schedule">
+        <div class="section-header"><h2>Weekly Class Schedule</h2></div>
+        <div class="schedule-grid" id="scheduleGrid"></div>
+        <div class="section-header"><h2>Week View (Upcoming)</h2></div>
+        <div class="week-grid" id="weekGrid"></div>
+    </div>
+
+    <!-- Bunk budget tab -->
+    <div class="tab-panel" id="tab-bunk">
+        <div class="section-header"><h2>Bunk Budget Overview</h2></div>
+        <div class="legend-row">
+            <div class="legend-item"><div class="legend-box" style="background:#2a2a2a;"></div>Already attended</div>
+            <div class="legend-item"><div class="legend-box" style="background:var(--accent2);"></div>Must still attend</div>
+            <div class="legend-item"><div class="legend-box" style="background:var(--accent);"></div>Can bunk</div>
+        </div>
+        <div id="bunkChartArea"></div>
+    </div>
+
+    <!-- Simulate tab -->
+    <div class="tab-panel" id="tab-simulate">
+        <div class="section-header"><h2>Attendance Simulator</h2></div>
+        <div class="sim-card">
+            <h3>Adjust extra classes you'll attend beyond minimum</h3>
+            <div class="sim-grid" id="simGrid"></div>
+        </div>
+        <div class="sim-card">
+            <h3>Projected final attendance</h3>
+            <div class="sim-result-grid" id="simResults"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>// MINIMUM TARGET: <span class="accent">75%</span></p>
+        <p>// 4 WEEKS REMAINING — <span class="accent">20 DAYS</span></p>
+    </footer>
+
+</div>
+
+<script>
+    // ── DATA ──────────────────────────────────────────────────────────────
+    const slots   = ['A1-COA','A2-MGT','B1-STS','C1-SWE','D1-DBMS','E1-MATH','F1-ML'];
+    const names   = ['Computer Organization','Management','Statistics','Software Engineering','DBMS','Mathematics','Machine Learning'];
+    const attended = [37,18,26,26,28,26,29];
+    const finished2 = [43,21,32,32,31,30,32];
+    const dayOrder = ['TUE','WED','THU','FRI','SAT'];
+
+    const schedule = {
+        TUE: [1,1,1,1,1,0,0],
+        WED: [0,0,1,0,1,1,1],
+        THU: [1,1,0,1,1,0,0],
+        FRI: [1,0,1,0,0,1,1],
+        SAT: [1,0,0,1,0,1,1],
+    };
+
+    const daysLeft = '12345123451234512345'.split('');
+    const dayKeyMap = {'1':'TUE','2':'WED','3':'THU','4':'FRI','5':'SAT'};
+
+    // compute finished
+    const finished = [...finished2];
+    for (const d of daysLeft) {
+        const r = schedule[dayKeyMap[d]];
+        for (let i = 0; i < 7; i++) finished[i] += r[i];
+    }
+
+    const classLeft = new Array(7).fill(0);
+    for (const d of daysLeft) {
+        const r = schedule[dayKeyMap[d]];
+        for (let i = 0; i < 7; i++) classLeft[i] += r[i];
+    }
+
+    const mustAttend = finished.map((f,i) => Math.floor(f*75/100)+1 - attended[i]);
+    const canBunk    = classLeft.map((l,i) => l - mustAttend[i]);
+    const currAtt    = finished2.map((f,i) => Math.round(attended[i]*100/f));
+    const minFinalAtt = finished.map((f,i) => Math.round((attended[i]+mustAttend[i])*100/f));
+
+    const subjectColors = ['var(--accent)','var(--accent3)','var(--accent2)','#f1c835','#c835f1','#35f178','#f17835'];
+
+    function attColor(pct) {
+        if (pct >= 88) return '#c8f135';
+        if (pct >= 80) return '#35c8f1';
+        return '#f13535';
+    }
+
+    // ── TICKER ───────────────────────────────────────────────────────────
+    const tickerEl = document.getElementById('tickerInner');
+    const items = slots.map((s,i) => `${s}: ${currAtt[i]}% ATT · ${canBunk[i]} BUNKS LEFT`);
+    const full = [...items,...items,...items,...items].join(' ◆ ');
+    tickerEl.innerHTML = `<span class="ticker-item">${full}</span><span class="ticker-item" aria-hidden="true">${full}</span>`;
+
+    // ── HEADER ────────────────────────────────────────────────────────────
+    document.getElementById('hdrAvg').textContent = Math.round(currAtt.reduce((a,b)=>a+b,0)/7) + '%';
+
+    // ── OVERVIEW ─────────────────────────────────────────────────────────
+    const totalLeft  = classLeft.reduce((a,b)=>a+b,0);
+    const totalBunk  = canBunk.reduce((a,b)=>a+b,0);
+    const totalMust  = mustAttend.reduce((a,b)=>a+b,0);
+    const totalDone  = attended.reduce((a,b)=>a+b,0);
+    const totalFin2  = finished2.reduce((a,b)=>a+b,0);
+
+    const ovCards = [
+        { num: Math.round(currAtt.reduce((a,b)=>a+b,0)/7)+'%', label:'Avg Attendance', sub:'Across 7 subjects' },
+        { num: totalDone+'/'+totalFin2, label:'Classes Attended', sub:'So far this semester' },
+        { num: totalLeft, label:'Classes Remaining', sub:'4 weeks × 5 days' },
+        { num: totalBunk, label:'Bunks Available', sub: totalMust+' must still attend' },
+    ];
+
+    const og = document.getElementById('overviewGrid');
+    ovCards.forEach(c => {
+        og.innerHTML += `<div class="ov-card"><div class="ov-num">${c.num}</div><div class="ov-label">${c.label}</div><div class="ov-sub">${c.sub}</div></div>`;
+    });
+
+    // ── SUBJECTS ─────────────────────────────────────────────────────────
+    const ss = document.getElementById('subjectsSection');
+    slots.forEach((s, i) => {
+        const pct = currAtt[i];
+        const bgCol = attColor(pct);
+        const row = document.createElement('div');
+        row.className = 'subject-row';
+        row.innerHTML = `
+      <div class="subject-summary" onclick="toggleRow(this.parentElement)">
+        <div><div class="subj-id">${s}</div></div>
+        <div class="subj-fullname">${names[i]}</div>
+        <div class="subj-stat"><div class="val">${attended[i]}/${finished2[i]}</div><div class="lbl">Attended</div></div>
+        <div class="subj-stat"><div class="val">${classLeft[i]}</div><div class="lbl">Left</div></div>
+        <div class="att-badge" style="background:${bgCol}22;color:${bgCol};border:1px solid ${bgCol}44;">${pct}%</div>
+        <div class="expand-icon">+</div>
+      </div>
+      <div class="subject-detail">
+        <div class="detail-inner">
+          <div class="detail-block">
+            <h4>Attendance Progress</h4>
+            <div class="pbar-wrap">
+              <div class="pbar-labels"><span>Current</span><span>${pct}%</span></div>
+              <div class="pbar-track"><div class="pbar-fill" style="width:${pct}%;background:${bgCol};"></div></div>
+            </div>
+            <div class="pbar-wrap">
+              <div class="pbar-labels"><span>Min target</span><span>${minFinalAtt[i]}%</span></div>
+              <div class="pbar-track"><div class="pbar-fill" style="width:${minFinalAtt[i]}%;background:#888;"></div></div>
+            </div>
+            <div class="pbar-wrap">
+              <div class="pbar-labels"><span>75% line</span><span>75%</span></div>
+              <div class="pbar-track"><div class="pbar-fill" style="width:75%;background:#333;border-right:2px dashed #888;"></div></div>
+            </div>
+          </div>
+          <div class="detail-block">
+            <h4>Class Breakdown</h4>
+            <div style="font-family:var(--font-mono);font-size:12px;line-height:2;color:var(--muted);">
+              <div>Total classes: <span style="color:var(--text);float:right;">${finished[i]}</span></div>
+              <div>Attended so far: <span style="color:var(--text);float:right;">${attended[i]}</span></div>
+              <div>Classes left: <span style="color:var(--text);float:right;">${classLeft[i]}</span></div>
+              <div>Must attend: <span style="color:var(--accent2);float:right;">${mustAttend[i]}</span></div>
+              <div>Can skip: <span style="color:var(--accent);float:right;">${canBunk[i]}</span></div>
+            </div>
+          </div>
+          <div class="detail-block">
+            <h4>Bunk Visualizer</h4>
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-bottom:8px;">
+              ${classLeft[i]} remaining classes breakdown
+            </div>
+            <div class="bunk-visual">
+              <div class="bunk-seg seg-must" style="flex:${mustAttend[i]};">${mustAttend[i]>0?mustAttend[i]+' MUST':''}</div>
+              <div class="bunk-seg seg-bunk" style="flex:${canBunk[i]};">${canBunk[i]>0?canBunk[i]+' FREE':''}</div>
+            </div>
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-top:8px;">
+              Summary: <span style="color:var(--text);font-weight:700;">${mustAttend[i]} of ${classLeft[i]}</span> classes needed
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+        ss.appendChild(row);
+    });
+
+    function toggleRow(el) {
+        el.classList.toggle('expanded');
+    }
+
+    // ── SCHEDULE ─────────────────────────────────────────────────────────
+    const sg = document.getElementById('scheduleGrid');
+    dayOrder.forEach(day => {
+        const row = schedule[day];
+        const subjectsToday = slots.filter((_,i) => row[i]===1);
+        const count = subjectsToday.length;
+        let pills = subjectsToday.map((s,j) => {
+            const ci = slots.indexOf(s);
+            return `<span class="subj-pill c${ci}">${s}</span>`;
+        }).join('');
+        sg.innerHTML += `
+      <div class="day-col">
+        <div class="day-header">
+          <div class="day-name">${day}</div>
+          <div class="day-count">${count}</div>
+          <div class="day-count-label">classes</div>
+        </div>
+        <div class="day-subjects">${pills}</div>
+      </div>`;
+    });
+
+    // week view
+    const wg = document.getElementById('weekGrid');
+    dayOrder.forEach(day => {
+        const row = schedule[day];
+        let blocks = '';
+        for (let i = 0; i < 7; i++) {
+            if (row[i]===1) blocks += `<div class="week-class c${i}">${slots[i]}<br><span style="font-size:10px;opacity:0.7;">${names[i]}</span></div>`;
+        }
+        wg.innerHTML += `<div class="week-day"><div class="week-day-hdr">${day}</div>${blocks}</div>`;
+    });
+
+    // ── BUNK CHART ───────────────────────────────────────────────────────
+    const bca = document.getElementById('bunkChartArea');
+    const totalBars = finished.map((f,i) => f);
+    const maxTotal = Math.max(...totalBars);
+
+    slots.forEach((s,i) => {
+        const attendedW  = Math.round(attended[i]/maxTotal*100);
+        const mustW      = Math.round(mustAttend[i]/maxTotal*100);
+        const bunkW      = Math.round(canBunk[i]/maxTotal*100);
+
+        bca.innerHTML += `
+      <div class="bunk-row">
+        <div class="bunk-label">${s}</div>
+        <div class="bunk-bar-track">
+          <div class="bunk-seg-small seg-attended" style="width:${attendedW}%;min-width:${attendedW>0?'20px':'0'};">${attended[i]}</div>
+          <div class="bunk-seg-small seg-must" style="width:${mustW}%;min-width:${mustW>0?'20px':'0'};">${mustAttend[i]}</div>
+          <div class="bunk-seg-small seg-bunk" style="width:${bunkW}%;min-width:${bunkW>0?'20px':'0'};">${canBunk[i]}</div>
+        </div>
+        <div class="bunk-info">${canBunk[i]} bunk / ${mustAttend[i]} must</div>
+      </div>`;
+    });
+
+    // ── SIMULATE ─────────────────────────────────────────────────────────
+    const simExtra = new Array(7).fill(0);
+
+    function buildSim() {
+        const simG = document.getElementById('simGrid');
+        simG.innerHTML = '';
+        slots.forEach((s,i) => {
+            const div = document.createElement('div');
+            div.className = 'sim-subject';
+            div.innerHTML = `
+        <div class="sim-subject-name">${s} — ${names[i]}</div>
+        <div class="sim-controls">
+          <button class="sim-btn" onclick="simChange(${i},-1)">−</button>
+          <div class="sim-value" id="simVal${i}">${simExtra[i]}</div>
+          <button class="sim-btn" onclick="simChange(${i},1)">+</button>
+        </div>
+        <div class="sim-att-display" id="simAtt${i}">—</div>
+      `;
+            simG.appendChild(div);
+        });
+        updateSimResults();
+    }
+
+    function simChange(i, delta) {
+        const newVal = simExtra[i] + delta;
+        if (newVal < 0 || newVal > canBunk[i]) return;
+        simExtra[i] = newVal;
+        document.getElementById('simVal'+i).textContent = newVal;
+        updateSimResults();
+    }
+
+    function updateSimResults() {
+        const sr = document.getElementById('simResults');
+        sr.innerHTML = '';
+        slots.forEach((s,i) => {
+            const totalAttend = attended[i] + mustAttend[i] + simExtra[i];
+            const projPct = Math.round(totalAttend / finished[i] * 100);
+            const isWarn = projPct < 75;
+            const col = attColor(projPct);
+
+            document.getElementById('simAtt'+i).textContent = `→ ${projPct}% projected`;
+            document.getElementById('simAtt'+i).style.color = col;
+
+            sr.innerHTML += `
+        <div class="sim-result-card ${isWarn?'warn':''}">
+          <div class="sr-name">${s}</div>
+          <div class="sr-val" style="color:${col};">${projPct}%</div>
+          <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-top:4px;">
+            ${totalAttend}/${finished[i]} classes · extra: ${simExtra[i]}
+          </div>
+        </div>`;
+        });
+    }
+
+    buildSim();
+
+    // ── TABS ─────────────────────────────────────────────────────────────
+    function showTab(name) {
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('tab-'+name).classList.add('active');
+        event.target.classList.add('active');
+    }
+</script>
+</body>
+</html>
