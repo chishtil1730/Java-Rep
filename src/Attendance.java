@@ -12,13 +12,13 @@ public class Attendance {
         String[] days_values = {"TUE","WED","THU","FRI","SAT"};
         String[] days = {"1","2","3","4","5"};
 
-        String days_left = "1234523451234512345";
+        String days_left = "23451234512345";
         String[] leftOut = days_left.split("");
         //System.out.println(Arrays.toString(leftOut));
 
-        int[]  finished = {44,22,32,33,32,30,32};
-        int[] finished2 = {44,22,32,33,32,30,32};
-        int[]  attended = {38,19,27,27,29,27,29};
+        int[]  finished = {49,24,35,37,35,34,34};
+        int[] finished2 = {49,24,35,37,35,34,34};
+        int[]  attended = {42,20,30,31,32,31,31};
                                //a1 a2 b1 c1 d1 e1 f1
         classes.put("1",new int[]{1, 1, 1, 1, 1, 0, 0});//tue
         classes.put("2",new int[]{0, 0, 1, 0, 1, 1, 1});//wed
