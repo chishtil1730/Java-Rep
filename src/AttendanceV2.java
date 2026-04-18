@@ -21,11 +21,11 @@ public class AttendanceV2 {
 
     // ──────────────── hardcoded data ────────────────
     // Total classes held so far (before remaining days)
-    static final int[] FINISHED  = {49, 24, 35, 37, 35, 34, 34};
+    static final int[] FINISHED  = {52, 25, 36, 39, 37, 37, 38};
     // Classes you actually attended
-    static final int[] ATTENDED  = {42, 20, 30, 31, 32, 31, 31};
+    static final int[] ATTENDED  = {43, 21, 31, 33, 34, 34, 34};
     // Remaining days encoded as day-codes (e.g. "23451234512345")
-    static final String DAYS_LEFT = "23451234512345";
+    static final String DAYS_LEFT = "123451234";
 
     // ─────────────────────────────────────────────────────────────────────────────
 
