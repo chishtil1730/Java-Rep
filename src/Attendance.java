@@ -12,13 +12,13 @@ public class Attendance {
         String[] days_values = {"TUE","WED","THU","FRI","SAT"};
         String[] days = {"1","2","3","4","5"};
 
-        String days_left = "23451234512345";
+        String days_left = "123451234";
         String[] leftOut = days_left.split("");
         //System.out.println(Arrays.toString(leftOut));
 
-        int[]  finished = {49,24,35,37,35,34,34};
-        int[] finished2 = {49,24,35,37,35,34,34};
-        int[]  attended = {42,20,30,31,32,31,31};
+        int[]  finished = {52, 25, 36, 39, 37, 37, 38};
+        int[] finished2 = {52, 25, 36, 39, 37, 37, 38};
+        int[]  attended = {43, 21, 31, 33, 34, 34, 34};
                                //a1 a2 b1 c1 d1 e1 f1
         classes.put("1",new int[]{1, 1, 1, 1, 1, 0, 0});//tue
         classes.put("2",new int[]{0, 0, 1, 0, 1, 1, 1});//wed
@@ -59,6 +59,9 @@ public class Attendance {
         for (int i : finished){
             //System.out.print("  "+( ( (i*75)/100 +1 )-attended[k] )+"    ");
             classYouHaveToAttend[k] = ( ( (i*75)/100 +1 )-attended[k] );
+            if( classYouHaveToAttend[k]<0){
+                classYouHaveToAttend[k]=0;
+            }
             k++;
         }
         //System.out.println("]");
