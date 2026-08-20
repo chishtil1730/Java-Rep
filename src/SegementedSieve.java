@@ -15,23 +15,12 @@ class SegmentedSieve {
         Arrays.fill(primes,true);
         for(int i=2;i*i<=r;i++){
             int sm = (l/i)*i;
-            if(sm<l){
-                sm+=i;
-            }
-            if(sm==i){
-                sm+=i;
-            }
-            for(int p=sm;p<=r;p+=i){
-                primes[p-l]=false;
-            }
+            if(sm<l)sm+=i;
+            if(sm==i)sm+=i;
+            for(int p=sm;p<=r;p+=i)primes[p-l]=false;
         }
-        if(l==1){
-            primes[0]=false;
-        }
-        for (int i=l;i<=r;i++){
-            if(primes[i-l]){
-                System.out.print(i+" ");
-            }
+        for(int i=l;i<=r;i++){
+            System.out.print(primes[i-l]?i+" ":"");
         }
     }
 
